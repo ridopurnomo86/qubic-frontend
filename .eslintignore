@@ -2,3 +2,5 @@ build
 public/build
 .next
 node_modules
+next-env.d.ts
+components/ui

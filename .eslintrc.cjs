@@ -47,7 +47,6 @@ module.exports = {
         "plugin:react/jsx-runtime",
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
-        "plugin:tailwindcss/recommended",
       ],
       settings: {
         react: {
