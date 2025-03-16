@@ -8,7 +8,28 @@ export const metadata: Metadata = {
   description: "Exam for Qubic",
 };
 
-export default function RootLayout({
+const renderComponent = ({
+  children,
+  isAuth = false,
+}: {
+  children: React.ReactElement | React.ReactNode;
+  isAuth: boolean;
+}) => {
+  if (isAuth)
+    return (
+      <SidebarProvider>
+        <AppSidebar />
+        <main>
+          <SidebarTrigger />
+          {children}
+        </main>
+      </SidebarProvider>
+    );
+
+  return <main>{children}</main>;
+};
+
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -16,13 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <SidebarProvider>
-          <AppSidebar />
-          <main>
-            <SidebarTrigger />
-            {children}
-          </main>
-        </SidebarProvider>
+        {renderComponent({ children, isAuth: false })}
       </body>
     </html>
   );
