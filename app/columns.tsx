@@ -72,18 +72,24 @@ const columns: ColumnDef<UsersDataType>[] = [
   },
   {
     id: "actions",
-    cell: () => (
-      <Dropdown
-        label="Actions"
-        menuItems={[
-          {
-            id: 1,
-            name: "View user",
-          },
-        ]}
-        triggerComp={<MoreHorizontal className="h-4 w-4" />}
-      />
-    ),
+    cell: ({ row }) => {
+      const user = row.original;
+
+      return (
+        <Dropdown
+          label="Actions"
+          menuItems={[
+            {
+              id: 1,
+              name: "View user",
+              isItemNavigate: true,
+              navigate: `user/${user.id}`,
+            },
+          ]}
+          triggerComp={<MoreHorizontal className="h-4 w-4" />}
+        />
+      );
+    },
   },
 ];
 
