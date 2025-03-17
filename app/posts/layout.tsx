@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import Sidebar from "@/components/core/navigation/Sidebar";
 import Navbar from "@/components/core/navigation/Navbar";
 
-export default async function UserDetailLayout({
+export const metadata: Metadata = {
+  title: "Posts",
+};
+
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

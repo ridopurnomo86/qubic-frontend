@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import Sidebar from "@/components/core/Sidebar";
-import Navbar from "@/components/core/Navbar";
+import Sidebar from "@/components/core/navigation/Sidebar";
+import Navbar from "@/components/core/navigation/Navbar";
 
 export const metadata: Metadata = {
   title: "Dashboard",

@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormStatus } from "react-dom";
 import { signIn } from "../actions";
 import { cn } from "@/lib/utils";
-import Form from "@/components/core/Form";
+import Form from "@/components/core/data-entry/Form";
 import { LoginValidation, LoginValidationType } from "@/validation/auth";
 import { Button } from "@/components/ui/button";
 import Alert from "@/components/core/feedbacks/Alert";

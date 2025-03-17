@@ -1,6 +1,5 @@
-import columns from "./columns";
+import DataTable from "./table";
 import InformationCard from "@/components/core/cards/InformationCard";
-import DataTable from "@/components/core/DataTable";
 
 const Dashboard = async () => {
   const request = await fetch(`${process.env.BACKEND_BASE_URL}/users`);
@@ -9,7 +8,7 @@ const Dashboard = async () => {
   return (
     <div className="container mx-auto px-10 py-8">
       <InformationCard title={users.length} subtitle="Total users volume" />
-      <DataTable columns={columns} data={users} />
+      <DataTable users={users} />
     </div>
   );
 };
