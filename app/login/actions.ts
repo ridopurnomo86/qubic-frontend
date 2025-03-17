@@ -39,7 +39,7 @@ export async function signIn(formData: FormData) {
       maxAge: 18000000,
       sameSite: "strict",
     });
-    return redirect("/");
+    return redirect("/dashboard");
   }
 
   return {

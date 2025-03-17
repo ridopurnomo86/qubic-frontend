@@ -8,6 +8,9 @@ export async function middleware(request: NextRequest) {
 
   const token = cookieStore.get("qb-token");
 
+  if (pathname === "/")
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+
   if (!token && pathname !== "/login")
     return NextResponse.redirect(new URL("/login", request.url));
 
