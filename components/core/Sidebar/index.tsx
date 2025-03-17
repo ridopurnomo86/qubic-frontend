@@ -1,6 +1,6 @@
 import { Home, StickyNote } from "lucide-react";
 import {
-  Sidebar,
+  Sidebar as CoreSidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
@@ -23,8 +23,8 @@ const items = [
   },
 ];
 
-const AppSidebar = () => (
-  <Sidebar collapsible="icon">
+const Sidebar = () => (
+  <CoreSidebar collapsible="icon">
     <SidebarContent>
       <SidebarGroup className="group-data-[collapsible=icon]:hidden">
         <SidebarGroupLabel>Application</SidebarGroupLabel>
@@ -44,7 +44,7 @@ const AppSidebar = () => (
         </SidebarGroupContent>
       </SidebarGroup>
     </SidebarContent>
-  </Sidebar>
+  </CoreSidebar>
 );
 
-export default AppSidebar;
+export default Sidebar;

@@ -1,56 +1,89 @@
 "use client";
 
-import { useState } from "react";
-import { Label } from "@radix-ui/react-dropdown-menu";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useFormStatus } from "react-dom";
+import { signIn } from "../actions";
 import { cn } from "@/lib/utils";
+import Form from "@/components/core/Form";
+import { LoginValidation, LoginValidationType } from "@/validation/auth";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Alert from "@/components/core/feedbacks/Alert";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+  const responseMessageRef = useRef<{
+    type: string;
+    message: string;
+    label: string;
+  }>(null);
+
+  const { pending } = useFormStatus();
+  const form = useForm<LoginValidationType>({
+    resolver: zodResolver(LoginValidation),
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  });
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
+  async function onSubmit(values: LoginValidationType) {
+    const formData = new FormData();
+
     setIsLoading(true);
 
-    setTimeout(() => {
+    formData.append("username", values.username);
+    formData.append("password", values.password);
+
+    const data = await signIn(formData);
+
+    if (data.type === "error") {
+      responseMessageRef.current = data;
       setIsLoading(false);
-    }, 3000);
+    }
   }
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
-      <form onSubmit={onSubmit}>
-        <div className="grid gap-2">
-          <div className="grid gap-1">
-            <Label className="sr-only">Email</Label>
-            <Input
-              id="email"
-              placeholder="name@example.com"
-              type="email"
-              autoCapitalize="none"
-              autoComplete="email"
-              autoCorrect="off"
-              disabled={isLoading}
-            />
-          </div>
-          <div className="grid gap-1">
-            <Label className="sr-only">Password</Label>
-            <Input
-              id="password"
-              placeholder="********"
-              type="password"
-              autoCapitalize="none"
-              autoComplete="password"
-              autoCorrect="off"
-              disabled={isLoading}
-            />
-          </div>
-          <Button disabled={isLoading}>Sign In with Email</Button>
-        </div>
-      </form>
+      {responseMessageRef.current?.type === "error" && (
+        <Alert
+          title={responseMessageRef.current?.label}
+          description={responseMessageRef.current?.message}
+          variant="destructive"
+        />
+      )}
+      <Form
+        form={form}
+        onSubmit={onSubmit}
+        forms={[
+          {
+            id: "username",
+            label: "Username",
+            name: "username",
+            placeholder: "zed-crauser",
+            type: "text",
+          },
+          {
+            id: "password",
+            label: "Password",
+            name: "password",
+            placeholder: "********",
+            type: "password",
+          },
+        ]}
+      >
+        <Button
+          type="submit"
+          disabled={isLoading || pending}
+          className="text-neutral-200 w-full"
+        >
+          Login with Email
+        </Button>
+      </Form>
     </div>
   );
 }

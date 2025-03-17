@@ -1,32 +1,10 @@
 import type { Metadata } from "next";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import AppSidebar from "@/components/core/AppSidebar";
 import "./globals.css";
+import { ThemeProvider } from "@/context/ThemeContext/provider";
 
 export const metadata: Metadata = {
   title: "Qubic Frontend",
   description: "Exam for Qubic",
-};
-
-const renderComponent = ({
-  children,
-  isAuth = false,
-}: {
-  children: React.ReactElement | React.ReactNode;
-  isAuth: boolean;
-}) => {
-  if (isAuth)
-    return (
-      <SidebarProvider>
-        <AppSidebar />
-        <main>
-          <SidebarTrigger />
-          {children}
-        </main>
-      </SidebarProvider>
-    );
-
-  return <main>{children}</main>;
 };
 
 export default async function DashboardLayout({
@@ -35,9 +13,16 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
-        {renderComponent({ children, isAuth: false })}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

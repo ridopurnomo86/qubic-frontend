@@ -1,5 +1,5 @@
 import UserProfileCard from "@/components/core/cards/UserProfileCard";
-import PostDataType from "@/types/data/posts";
+import PostCardList from "@/components/core/data-display/PostList";
 
 type UserDetailPropsType = {
   params: Promise<{ userId: string }>;
@@ -7,6 +7,7 @@ type UserDetailPropsType = {
 
 const UserDetail = async ({ params }: UserDetailPropsType) => {
   const { userId } = await params;
+
   const request = await fetch(
     `${process.env.BACKEND_BASE_URL}/users/${userId}`,
   );
@@ -22,14 +23,7 @@ const UserDetail = async ({ params }: UserDetailPropsType) => {
     <div className="container mx-auto px-10 py-8">
       <UserProfileCard name={user.name} email={user.email} phone={user.phone} />
       <div className="mt-4 space-y-2">
-        {posts.map((post: PostDataType) => (
-          <div className="border p-4 rounded" key={post.id}>
-            <p className="text-md font-semibold text-neutral-800">
-              {post.title}
-            </p>
-            <p className="text-sm font-medium text-neutral-600">{post.body}</p>
-          </div>
-        ))}
+        <PostCardList posts={posts} />
       </div>
     </div>
   );
