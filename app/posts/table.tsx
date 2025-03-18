@@ -23,7 +23,7 @@ const DataTable = () => {
   const { data: postsData, isLoading } = useSWR(
     `${process.env.BACKEND_BASE_URL}/posts?_page=${pageIndex}&_limit=${limit.current}`,
     fetcher,
-    {},
+    {}
   );
 
   if (isLoading)
