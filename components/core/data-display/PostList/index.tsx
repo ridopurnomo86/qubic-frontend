@@ -1,19 +1,21 @@
+import PostCard from "../../cards/PostCard";
 import PostDataType from "@/types/data/posts";
 
 type PostCardListPropsType = {
   posts: Array<PostDataType>;
 };
 
-const PostCardList = ({ posts }: PostCardListPropsType) =>
-  posts.map((post: PostDataType) => (
-    <div className="border p-4 rounded" key={post.id}>
-      <p className="text-md font-semibold text-neutral-800 dark:text-neutral-100">
-        {post.title}
-      </p>
-      <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
-        {post.body}
-      </p>
-    </div>
-  ));
+const PostCardList = ({ posts }: PostCardListPropsType) => (
+  <div className="space-y-4">
+    {posts.map((post) => (
+      <PostCard
+        body={post.body}
+        title={post.title}
+        key={post.id}
+        navigateTo={`/post/${post.id}`}
+      />
+    ))}
+  </div>
+);
 
 export default PostCardList;

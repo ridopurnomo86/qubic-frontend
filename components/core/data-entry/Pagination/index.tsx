@@ -3,7 +3,6 @@ import {
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
@@ -12,29 +11,14 @@ type PaginationPropsType = {
   className?: string;
   onPrevious: () => void;
   onNext: () => void;
-  pages: Array<number>;
-  activePage: number;
 };
 
-const Pagination = ({
-  className,
-  onPrevious,
-  onNext,
-  pages,
-  activePage,
-}: PaginationPropsType) => (
+const Pagination = ({ className, onPrevious, onNext }: PaginationPropsType) => (
   <CorePagination className={className}>
     <PaginationContent>
       <PaginationItem>
         <PaginationPrevious onClick={onPrevious} />
       </PaginationItem>
-      {pages.map((page) => (
-        <PaginationItem key={page}>
-          <PaginationLink href="" isActive={page === activePage}>
-            {page}
-          </PaginationLink>
-        </PaginationItem>
-      ))}
       <PaginationItem>
         <PaginationEllipsis />
       </PaginationItem>
